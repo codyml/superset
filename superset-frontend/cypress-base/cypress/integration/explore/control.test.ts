@@ -129,7 +129,7 @@ describe('Test datatable', () => {
   });
   it.skip('Datapane loads view samples', () => {
     cy.contains('Samples').click();
-    cy.get('[data-test="row-count-label"]').contains('1k rows');
+    cy.get('[data-test="row-count-label"]').contains('10 rows');
     cy.get('.ant-empty-description').should('not.exist');
   });
 });

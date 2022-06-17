@@ -131,3 +131,6 @@ CUSTOM_TEMPLATE_PROCESSORS = {
 }
 
 PRESERVE_CONTEXT_ON_EXCEPTION = False
+
+# Attempts to make Cypress tests less flaky
+SAMPLES_ROW_LIMIT = 10
