@@ -23,6 +23,7 @@ import {
   GenericDataType,
   JsonObject,
   NativeFiltersState,
+  NativeFilterScope,
 } from '@superset-ui/core';
 import { Dataset } from '@superset-ui/chart-controls';
 import { chart } from 'src/components/Chart/chartReducer';
@@ -162,4 +163,26 @@ export type EmbeddedDashboard = {
   uuid: string;
   dashboard_id: string;
   allowed_domains: string[];
+};
+
+export type ChartConfiguration = {
+  [chartId: number]: {
+    id: number;
+    crossFilters: {
+      scope: NativeFilterScope;
+    };
+  };
+};
+
+export type FilterSetFullData = {
+  changed_by_fk: string | null;
+  changed_on: string | null;
+  created_by_fk: string | null;
+  created_on: string | null;
+  dashboard_id: number;
+  description: string | null;
+  name: string;
+  owner_id: number;
+  owner_type: string;
+  params: JsonObject;
 };
