@@ -50,7 +50,7 @@ export const getFormData = ({
   datasetId?: number;
   dependencies?: object;
   groupby?: string;
-  adhoc_filters?: AdhocFilter[];
+  adhoc_filters?: AdhocFilter[] | null;
   time_range?: string;
 }): Partial<QueryFormData> => {
   const otherProps: {
