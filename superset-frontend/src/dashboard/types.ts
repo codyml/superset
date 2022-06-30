@@ -23,6 +23,7 @@ import {
   JsonObject,
   NativeFiltersState,
   NativeFilterScope,
+  QueryFormData,
 } from '@superset-ui/core';
 import { Dataset } from '@superset-ui/chart-controls';
 import componentTypes from 'src/dashboard/util/componentTypes';
@@ -32,15 +33,20 @@ import {
   CommonBootstrapData,
   UserWithPermissionsAndRoles,
 } from 'src/types/bootstrapTypes';
-import { Slice } from '../explore/types';
+import { ChartState, Slice } from '../explore/types';
 
 export { Dashboard } from 'src/types/Dashboard';
 
-/** Redux state.charts */
-export type Chart = any;
+/** Redux shape for state.charts */
+export type Chart = ChartState & {
+  form_data: QueryFormData & {
+    url_params: JsonObject;
+  };
+};
+
 export type ChartsState = { [key: string]: Chart };
 
-/** Redux state.dashboardState */
+/** Redux shape for state.dashboardState */
 export type ActiveTabs = string[];
 export type DashboardState = {
   preselectNativeFilters?: JsonObject;
@@ -69,7 +75,7 @@ export type DashboardInfo = {
   };
 };
 
-/** Redux state.datasources */
+/** Redux shape for state.datasources */
 export type Datasource = Dataset & {
   uid: string;
   column_types: GenericDataType[];
@@ -80,7 +86,7 @@ export type DatasourcesState = {
   [key: string]: Datasource;
 };
 
-/** Redux state.dashboardLayout */
+/** Redux shape for state.dashboardLayout */
 type ComponentTypesKeys = keyof typeof componentTypes;
 export type ComponentType = typeof componentTypes[ComponentTypesKeys];
 export type LayoutItem = {
@@ -104,7 +110,7 @@ export type LayoutItem = {
 export type DashboardLayout = { [key: string]: LayoutItem };
 export type DashboardLayoutState = { present: DashboardLayout };
 
-/** Redux state.sliceEntities */
+/** Redux shape for state.sliceEntities */
 export type SliceEntities = {
   slices: Record<string, Slice>;
   isLoading: boolean;
@@ -112,7 +118,7 @@ export type SliceEntities = {
   lastUpdated: number;
 };
 
-/** Root state of redux */
+/** Redux root state */
 export type RootState = {
   common: CommonBootstrapData;
   datasources: DatasourcesState;

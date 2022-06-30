@@ -31,7 +31,7 @@ export const isShowTypeInTree = (
   charts?: ChartsState,
 ) =>
   (type === TAB_TYPE || type === CHART_TYPE || type === DASHBOARD_ROOT_TYPE) &&
-  (!charts || charts[meta?.chartId]?.formData?.viz_type !== 'filter_box');
+  (!charts || charts[meta?.chartId]?.form_data?.viz_type !== 'filter_box');
 
 export const buildTree = (
   node: LayoutItem,

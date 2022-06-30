@@ -20,7 +20,12 @@
 import { AnyAction } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 
-import { Behavior, getChartMetadataRegistry } from '@superset-ui/core';
+import {
+  Behavior,
+  getChartMetadataRegistry,
+  JsonObject,
+  QueryFormData,
+} from '@superset-ui/core';
 
 import { chart } from 'src/components/Chart/chartReducer';
 import { initSliceEntities } from 'src/dashboard/reducers/sliceEntities';
@@ -59,7 +64,7 @@ import { FeatureFlag, isFeatureEnabled } from '../../featureFlags';
 import extractUrlParams from '../util/extractUrlParams';
 import getNativeFilterConfig from '../util/filterboxMigrationHelper';
 import { updateColorSchema } from './dashboardInfo';
-import { RootState } from '../types';
+import { Chart, RootState } from '../types';
 
 export const HYDRATE_DASHBOARD = 'HYDRATE_DASHBOARD';
 
@@ -134,7 +139,7 @@ export const hydrateDashboard =
 
     const filterScopes = metadata?.filter_scopes || {};
 
-    const chartQueries = {};
+    const chartQueries: Record<string, Chart> = {};
     const dashboardFilters = {};
     const slices = {};
     const sliceIds = new Set();
@@ -152,8 +157,9 @@ export const hydrateDashboard =
       chartQueries[key] = {
         ...chart,
         id: key,
-        form_data,
-        formData: applyDefaultFormData(form_data),
+        form_data: applyDefaultFormData(form_data) as QueryFormData & {
+          url_params: JsonObject;
+        },
       };
 
       slices[key] = {
@@ -330,7 +336,7 @@ export const hydrateDashboard =
         const behaviors =
           (
             getChartMetadataRegistry().get(
-              chartQueries[chartId]?.formData?.viz_type,
+              chartQueries[chartId]?.form_data?.viz_type,
             ) ?? {}
           )?.behaviors ?? [];
 
