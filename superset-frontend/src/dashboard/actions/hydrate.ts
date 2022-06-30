@@ -189,14 +189,15 @@ export const hydrateDashboard =
         const chartHolder = newComponentFactory(
           CHART_TYPE,
           {
-            chartId: slice.slice_id,
+            chartId: slice.form_data.slice_id,
           },
           (newSlicesContainer.parents || []).slice(),
         );
 
-        const count = (slicesFromExploreCount.get(slice.slice_id) ?? 0) + 1;
-        chartHolder.id = `${CHART_TYPE}-explore-${slice.slice_id}-${count}`;
-        slicesFromExploreCount.set(slice.slice_id, count);
+        const count =
+          (slicesFromExploreCount.get(slice.form_data.slice_id) ?? 0) + 1;
+        chartHolder.id = `${CHART_TYPE}-explore-${slice.form_data.slice_id}-${count}`;
+        slicesFromExploreCount.set(slice.form_data.slice_id, count);
 
         layout[chartHolder.id] = chartHolder;
         newSlicesContainer.children.push(chartHolder.id);
