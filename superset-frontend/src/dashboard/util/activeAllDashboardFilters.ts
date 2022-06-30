@@ -25,7 +25,7 @@ import {
 import { CHART_TYPE } from './componentTypes';
 import {
   ActiveFilters,
-  Layout,
+  DashboardLayout,
   LayoutItem,
   ChartConfiguration,
 } from '../types';
@@ -98,7 +98,7 @@ export const getAllActiveFilters = ({
   chartConfiguration: ChartConfiguration;
   dataMask: DataMaskStateWithId;
   nativeFilters: Filters;
-  layout: Layout;
+  layout: DashboardLayout;
 }): ActiveFilters => {
   const activeFilters = {};
 

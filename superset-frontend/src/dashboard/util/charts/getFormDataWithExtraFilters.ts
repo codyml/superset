@@ -23,8 +23,8 @@ import {
   NativeFiltersState,
 } from '@superset-ui/core';
 import {
-  ChartQueryPayload,
-  Charts,
+  Chart,
+  ChartsState,
   LayoutItem,
   ChartConfiguration,
 } from 'src/dashboard/types';
@@ -40,8 +40,8 @@ const cachedFormdataByChart = {};
 
 export interface GetFormDataWithExtraFiltersArguments {
   chartConfiguration: ChartConfiguration;
-  chart: ChartQueryPayload;
-  charts: Charts;
+  chart: Chart;
+  charts: ChartsState;
   filters: DataRecordFilters;
   layout: { [key: string]: LayoutItem };
   colorScheme?: string;
