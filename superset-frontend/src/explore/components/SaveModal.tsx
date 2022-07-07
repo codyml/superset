@@ -210,7 +210,7 @@ class SaveModal extends React.Component<SaveModalProps, SaveModalState> {
       if (gotodash && dashboard) {
         this.props.history.push(dashboard.url);
       } else {
-        window.location.assign(`/explore/?slice_id=${value.id}`);
+        this.props.history.replace(`/explore/?slice_id=${value.id}`);
       }
     }) as (value: any) => void);
 

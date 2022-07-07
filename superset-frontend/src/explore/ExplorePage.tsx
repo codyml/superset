@@ -18,6 +18,7 @@
  */
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { makeApi, t } from '@superset-ui/core';
 import Loading from 'src/components/Loading';
 import { getParsedExploreURLParams } from './exploreUtils/getParsedExploreURLParams';
@@ -30,20 +31,17 @@ import { isNullish } from '../utils/common';
 
 const loadErrorMessage = t('Failed to load chart data.');
 
-const fetchExploreData = () => {
-  const exploreUrlParams = getParsedExploreURLParams();
-  return makeApi<{}, ExploreResponsePayload>({
-    method: 'GET',
-    endpoint: 'api/v1/explore/',
-  })(exploreUrlParams);
-};
-
 const ExplorePage = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const dispatch = useDispatch();
+  const location = useLocation();
 
   useEffect(() => {
-    fetchExploreData()
+    const exploreUrlParams = getParsedExploreURLParams(location);
+    makeApi<{}, ExploreResponsePayload>({
+      method: 'GET',
+      endpoint: 'api/v1/explore/',
+    })(exploreUrlParams)
       .then(({ result }) => {
         if (isNullish(result.dataset?.id) && isNullish(result.dataset?.uid)) {
           dispatch(hydrateExplore(fallbackExploreInitialData));
@@ -59,7 +57,7 @@ const ExplorePage = () => {
       .finally(() => {
         setIsLoaded(true);
       });
-  }, [dispatch]);
+  }, [dispatch, location]);
 
   if (!isLoaded) {
     return <Loading />;
