@@ -56,14 +56,16 @@ import { getFormDataFromControls } from 'src/explore/controlUtils';
 import * as exploreActions from 'src/explore/actions/exploreActions';
 import * as saveModalActions from 'src/explore/actions/saveModalActions';
 import { useTabId } from 'src/hooks/useTabId';
-import ExploreChartPanel from '../ExploreChartPanel';
+import ExploreChartPanel, {
+  propTypes as exploreChartPanelPropTypes,
+} from '../ExploreChartPanel';
 import ConnectedControlPanelsContainer from '../ControlPanelsContainer';
 import SaveModal from '../SaveModal';
 import DataSourcePanel from '../DatasourcePanel';
 import ConnectedExploreChartHeader from '../ExploreChartHeader';
 
 const propTypes = {
-  ...ExploreChartPanel.propTypes,
+  ...exploreChartPanelPropTypes,
   actions: PropTypes.object.isRequired,
   datasource_type: PropTypes.string.isRequired,
   dashboardId: PropTypes.number,
@@ -270,8 +272,7 @@ function ExploreViewContainer(props) {
     [
       props.dashboardId,
       props.form_data,
-      props.datasource.id,
-      props.datasource.type,
+      props.datasource,
       props.standalone,
       props.force,
       tabId,
@@ -289,7 +290,7 @@ function ExploreViewContainer(props) {
         props.chart.id,
       );
     }
-  }, [props.actions, props.chart.id, props.timeout]);
+  }, [props.actions, props.chart.id, props.force, props.timeout]);
 
   const onQuery = useCallback(() => {
     props.actions.setForceQuery(false);
@@ -377,7 +378,7 @@ function ExploreViewContainer(props) {
       // reload the controls now that we actually have the control config
       props.actions.dynamicPluginControlsReady();
     }
-  }, [isDynamicPluginLoading]);
+  }, [isDynamicPluginLoading, props.actions, wasDynamicPluginLoading]);
 
   useEffect(() => {
     const hasError = Object.values(props.controls).some(
@@ -387,7 +388,7 @@ function ExploreViewContainer(props) {
     if (!hasError) {
       props.actions.triggerQuery(true, props.chart.id);
     }
-  }, []);
+  }, [props.actions, props.chart.id, props.controls]);
 
   const reRenderChart = useCallback(
     controlsChanged => {
@@ -442,7 +443,14 @@ function ExploreViewContainer(props) {
         reRenderChart(displayControlsChanged);
       }
     }
-  }, [props.controls, props.ownState]);
+  }, [
+    previousControls,
+    props.chart.latestQueryFormData.viz_type,
+    props.controls,
+    props.form_data.datasource,
+    props.ownState,
+    reRenderChart,
+  ]);
 
   const chartIsStale = useMemo(() => {
     if (lastQueriedControls) {
@@ -469,7 +477,7 @@ function ExploreViewContainer(props) {
       onQuery();
       reRenderChart();
     }
-  }, [props.ownState]);
+  }, [onQuery, props.ownState, reRenderChart]);
 
   if (chartIsStale) {
     props.actions.logEvent(LOG_ACTIONS_CHANGE_EXPLORE_CONTROLS);

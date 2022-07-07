@@ -41,7 +41,7 @@ import { ChartPills } from './ChartPills';
 import { ExploreAlert } from './ExploreAlert';
 import { getChartRequiredFieldsMissingMessage } from '../../utils/getChartRequiredFieldsMissingMessage';
 
-const propTypes = {
+export const propTypes = {
   actions: PropTypes.object.isRequired,
   onQuery: PropTypes.func,
   can_overwrite: PropTypes.bool.isRequired,
@@ -173,7 +173,7 @@ const ExploreChartPanel = ({
         });
       }
     },
-    [slice],
+    [force, slice],
   );
 
   useEffect(() => {
