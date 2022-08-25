@@ -18,9 +18,15 @@
  */
 import PropTypes from 'prop-types';
 import React from 'react';
-import { styled, logging, t, ensureIsArray } from '@superset-ui/core';
+import {
+  styled,
+  logging,
+  t,
+  ensureIsArray,
+  isFeatureEnabled,
+  FeatureFlag,
+} from '@superset-ui/core';
 
-import { isFeatureEnabled, FeatureFlag } from 'src/featureFlags';
 import { PLACEHOLDER_DATASOURCE } from 'src/dashboard/constants';
 import Loading from 'src/components/Loading';
 import { EmptyStateBig } from 'src/components/EmptyState';

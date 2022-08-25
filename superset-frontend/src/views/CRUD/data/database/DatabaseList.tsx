@@ -16,14 +16,19 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { SupersetClient, t, styled } from '@superset-ui/core';
+import {
+  SupersetClient,
+  t,
+  styled,
+  isFeatureEnabled,
+  FeatureFlag,
+} from '@superset-ui/core';
 import React, { useState, useMemo, useEffect } from 'react';
 import rison from 'rison';
 import { useSelector } from 'react-redux';
 import { useQueryParams, BooleanParam } from 'use-query-params';
 
 import Loading from 'src/components/Loading';
-import { isFeatureEnabled, FeatureFlag } from 'src/featureFlags';
 import { useListViewResource } from 'src/views/CRUD/hooks';
 import { createErrorHandler, uploadUserPerms } from 'src/views/CRUD/utils';
 import withToasts from 'src/components/MessageToasts/withToasts';

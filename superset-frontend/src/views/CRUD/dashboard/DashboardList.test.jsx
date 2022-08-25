@@ -22,7 +22,7 @@ import thunk from 'redux-thunk';
 import configureStore from 'redux-mock-store';
 import fetchMock from 'fetch-mock';
 import { Provider } from 'react-redux';
-import * as featureFlags from 'src/featureFlags';
+import * as featureFlags from '@superset-ui/core';
 
 import waitForComponentToPaint from 'spec/helpers/waitForComponentToPaint';
 import { styledMount as mount } from 'spec/helpers/theming';

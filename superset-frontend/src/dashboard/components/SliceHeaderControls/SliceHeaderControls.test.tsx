@@ -20,7 +20,7 @@
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { render, screen } from 'spec/helpers/testing-library';
-import { FeatureFlag } from 'src/featureFlags';
+import { FeatureFlag } from '@superset-ui/core';
 import SliceHeaderControls, { SliceHeaderControlsProps } from '.';
 
 jest.mock('src/components/Dropdown', () => {

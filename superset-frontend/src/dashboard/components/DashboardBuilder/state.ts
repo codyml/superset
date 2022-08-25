@@ -17,7 +17,7 @@
  * under the License.
  */
 import { useSelector } from 'react-redux';
-import { FeatureFlag, isFeatureEnabled } from 'src/featureFlags';
+import { FeatureFlag, isFeatureEnabled } from '@superset-ui/core';
 import { useCallback, useEffect, useState, useContext } from 'react';
 import { URL_PARAMS } from 'src/constants';
 import { getUrlParam } from 'src/utils/urlUtils';

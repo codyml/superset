@@ -30,6 +30,8 @@ import {
   getCategoricalSchemeRegistry,
   ensureIsArray,
   getSharedLabelColor,
+  FeatureFlag,
+  isFeatureEnabled,
 } from '@superset-ui/core';
 
 import Modal from 'src/components/Modal';
@@ -38,7 +40,6 @@ import { JsonEditor } from 'src/components/AsyncAceEditor';
 import ColorSchemeControlWrapper from 'src/dashboard/components/ColorSchemeControlWrapper';
 import { getClientErrorObject } from 'src/utils/getClientErrorObject';
 import withToasts from 'src/components/MessageToasts/withToasts';
-import { FeatureFlag, isFeatureEnabled } from 'src/featureFlags';
 
 const StyledFormItem = styled(FormItem)`
   margin-bottom: 0;

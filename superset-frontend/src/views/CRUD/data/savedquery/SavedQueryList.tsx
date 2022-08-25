@@ -17,7 +17,13 @@
  * under the License.
  */
 
-import { SupersetClient, t, styled } from '@superset-ui/core';
+import {
+  SupersetClient,
+  t,
+  styled,
+  isFeatureEnabled,
+  FeatureFlag,
+} from '@superset-ui/core';
 import React, { useState, useMemo, useCallback } from 'react';
 import rison from 'rison';
 import moment from 'moment';
@@ -47,7 +53,6 @@ import { Tooltip } from 'src/components/Tooltip';
 import { commonMenuData } from 'src/views/CRUD/data/common';
 import { SavedQueryObject } from 'src/views/CRUD/types';
 import copyTextToClipboard from 'src/utils/copy';
-import { isFeatureEnabled, FeatureFlag } from 'src/featureFlags';
 import ImportModelsModal from 'src/components/ImportModal/index';
 import Icons from 'src/components/Icons';
 import SavedQueryPreviewModal from './SavedQueryPreviewModal';

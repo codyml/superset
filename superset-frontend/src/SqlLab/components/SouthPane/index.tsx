@@ -21,9 +21,7 @@ import shortid from 'shortid';
 import Alert from 'src/components/Alert';
 import Tabs from 'src/components/Tabs';
 import { EmptyStateMedium } from 'src/components/EmptyState';
-import { t, styled } from '@superset-ui/core';
-
-import { isFeatureEnabled, FeatureFlag } from 'src/featureFlags';
+import { t, styled, isFeatureEnabled, FeatureFlag } from '@superset-ui/core';
 
 import Label from 'src/components/Label';
 import { UserWithPermissionsAndRoles } from 'src/types/bootstrapTypes';

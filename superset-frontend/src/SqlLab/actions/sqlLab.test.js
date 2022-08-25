@@ -22,7 +22,7 @@ import fetchMock from 'fetch-mock';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import shortid from 'shortid';
-import * as featureFlags from 'src/featureFlags';
+import * as featureFlags from '@superset-ui/core';
 import * as actions from 'src/SqlLab/actions/sqlLab';
 import { defaultQueryEditor, query, initialState } from 'src/SqlLab/fixtures';
 

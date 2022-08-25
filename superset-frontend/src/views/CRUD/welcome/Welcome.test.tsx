@@ -23,7 +23,7 @@ import thunk from 'redux-thunk';
 import fetchMock from 'fetch-mock';
 import { act } from 'react-dom/test-utils';
 import configureStore from 'redux-mock-store';
-import * as featureFlags from 'src/featureFlags';
+import * as featureFlags from '@superset-ui/core';
 import Welcome from 'src/views/CRUD/welcome/Welcome';
 import { ReactWrapper } from 'enzyme';
 import waitForComponentToPaint from 'spec/helpers/waitForComponentToPaint';

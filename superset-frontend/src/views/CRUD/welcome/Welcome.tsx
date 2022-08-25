@@ -17,7 +17,13 @@
  * under the License.
  */
 import React, { useEffect, useState } from 'react';
-import { styled, t, getExtensionsRegistry } from '@superset-ui/core';
+import {
+  styled,
+  t,
+  getExtensionsRegistry,
+  FeatureFlag,
+  isFeatureEnabled,
+} from '@superset-ui/core';
 import Collapse from 'src/components/Collapse';
 import { User } from 'src/types/bootstrapTypes';
 import { reject } from 'lodash';
@@ -38,7 +44,6 @@ import {
   getUserOwnedObjects,
   loadingCardCount,
 } from 'src/views/CRUD/utils';
-import { FeatureFlag, isFeatureEnabled } from 'src/featureFlags';
 import { AntdSwitch } from 'src/components';
 
 import ActivityTable from './ActivityTable';

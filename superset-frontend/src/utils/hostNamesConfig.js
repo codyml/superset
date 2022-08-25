@@ -20,7 +20,7 @@ import {
   initFeatureFlags,
   isFeatureEnabled,
   FeatureFlag,
-} from 'src/featureFlags';
+} from '@superset-ui/core';
 
 function getDomainsConfig() {
   const appContainer = document.getElementById('app');

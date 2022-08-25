@@ -19,7 +19,14 @@
 import React, { useEffect, useState } from 'react';
 import FormItem from 'src/components/Form/FormItem';
 import { Select } from 'src/components';
-import { t, SupersetClient, SupersetTheme, styled } from '@superset-ui/core';
+import {
+  t,
+  SupersetClient,
+  SupersetTheme,
+  styled,
+  FeatureFlag,
+  isFeatureEnabled,
+} from '@superset-ui/core';
 import {
   Operators,
   OPERATORS_OPTIONS,
@@ -38,7 +45,6 @@ import AdhocFilter, {
 import { Tooltip } from 'src/components/Tooltip';
 import { Input } from 'src/components/Input';
 import { optionLabel } from 'src/utils/common';
-import { FeatureFlag, isFeatureEnabled } from 'src/featureFlags';
 import useAdvancedDataTypes from './useAdvancedDataTypes';
 
 const StyledInput = styled(Input)`

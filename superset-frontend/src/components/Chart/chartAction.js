@@ -19,9 +19,14 @@
 /* eslint no-undef: 'error' */
 /* eslint no-param-reassign: ["error", { "props": false }] */
 import moment from 'moment';
-import { t, SupersetClient, isDefined } from '@superset-ui/core';
+import {
+  t,
+  SupersetClient,
+  isDefined,
+  isFeatureEnabled,
+  FeatureFlag,
+} from '@superset-ui/core';
 import { getControlsState } from 'src/explore/store';
-import { isFeatureEnabled, FeatureFlag } from 'src/featureFlags';
 import {
   getAnnotationJsonUrl,
   getExploreUrl,

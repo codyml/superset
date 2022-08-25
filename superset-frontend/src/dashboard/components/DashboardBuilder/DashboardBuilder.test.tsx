@@ -21,7 +21,7 @@ import React from 'react';
 import fetchMock from 'fetch-mock';
 import { render } from 'spec/helpers/testing-library';
 import { fireEvent, within } from '@testing-library/react';
-import { FeatureFlag, isFeatureEnabled } from 'src/featureFlags';
+import { FeatureFlag, isFeatureEnabled } from '@superset-ui/core';
 import DashboardBuilder from 'src/dashboard/components/DashboardBuilder/DashboardBuilder';
 import useStoredFilterBarWidth from 'src/dashboard/components/DashboardBuilder/useStoredFilterBarWidth';
 import {
@@ -45,7 +45,10 @@ jest.mock('src/dashboard/actions/dashboardState', () => ({
   setActiveTabs: jest.fn(),
   setDirectPathToChild: jest.fn(),
 }));
-jest.mock('src/featureFlags');
+jest.mock('@superset-ui/core', () => ({
+  ...jest.requireActual('@superset-ui/core'),
+  isFeatureEnabled: jest.fn(),
+}));
 jest.mock('src/dashboard/components/DashboardBuilder/useStoredFilterBarWidth');
 
 // mock following dependant components to fix the prop warnings

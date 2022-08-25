@@ -39,12 +39,13 @@ import {
   t,
   SLOW_DEBOUNCE,
   isNativeFilter,
+  FeatureFlag,
+  isFeatureEnabled,
 } from '@superset-ui/core';
 import Icons from 'src/components/Icons';
 import { AntdTabs } from 'src/components';
 import { useHistory } from 'react-router-dom';
 import { usePrevious } from 'src/hooks/usePrevious';
-import { FeatureFlag, isFeatureEnabled } from 'src/featureFlags';
 import { updateDataMask, clearDataMask } from 'src/dataMask/actions';
 import { useImmer } from 'use-immer';
 import { isEmpty, isEqual, debounce } from 'lodash';

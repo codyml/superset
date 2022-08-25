@@ -23,8 +23,9 @@ import {
   getChartMetadataRegistry,
   logging,
   makeApi,
+  FeatureFlag,
+  isFeatureEnabled,
 } from '@superset-ui/core';
-import { FeatureFlag, isFeatureEnabled } from 'src/featureFlags';
 import { omitBy } from 'lodash';
 
 const metadataRegistry = getChartMetadataRegistry();

@@ -38,12 +38,13 @@ import {
   styled,
   t,
   useTheme,
+  FeatureFlag,
+  isFeatureEnabled,
 } from '@superset-ui/core';
 import { Menu } from 'src/components/Menu';
 import { NoAnimationDropdown } from 'src/components/Dropdown';
 import ShareMenuItems from 'src/dashboard/components/menu/ShareMenuItems';
 import downloadAsImage from 'src/utils/downloadAsImage';
-import { FeatureFlag, isFeatureEnabled } from 'src/featureFlags';
 import CrossFilterScopingModal from 'src/dashboard/components/CrossFilterScopingModal/CrossFilterScopingModal';
 import { getSliceHeaderTooltip } from 'src/dashboard/util/getSliceHeaderTooltip';
 import { Tooltip } from 'src/components/Tooltip';

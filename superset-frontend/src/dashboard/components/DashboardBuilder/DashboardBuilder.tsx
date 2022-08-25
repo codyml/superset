@@ -27,7 +27,14 @@ import React, {
   useRef,
 } from 'react';
 import { Resizable } from 're-resizable';
-import { JsonObject, styled, css, t } from '@superset-ui/core';
+import {
+  JsonObject,
+  styled,
+  css,
+  t,
+  FeatureFlag,
+  isFeatureEnabled,
+} from '@superset-ui/core';
 import { Global } from '@emotion/react';
 import { useDispatch, useSelector } from 'react-redux';
 import ErrorBoundary from 'src/components/ErrorBoundary';
@@ -47,7 +54,6 @@ import {
   setEditMode,
 } from 'src/dashboard/actions/dashboardState';
 import { useElementOnScreen } from 'src/hooks/useElementOnScreen';
-import { FeatureFlag, isFeatureEnabled } from 'src/featureFlags';
 import {
   deleteTopLevelTabs,
   handleComponentDrop,

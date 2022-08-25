@@ -20,7 +20,12 @@ import { setConfig as setHotLoaderConfig } from 'react-hot-loader';
 import 'abortcontroller-polyfill/dist/abortcontroller-polyfill-only';
 import moment from 'moment';
 // eslint-disable-next-line no-restricted-imports
-import { configure, makeApi, supersetTheme } from '@superset-ui/core';
+import {
+  configure,
+  makeApi,
+  supersetTheme,
+  initFeatureFlags,
+} from '@superset-ui/core';
 import { merge } from 'lodash';
 import setupClient from './setup/setupClient';
 import setupColors from './setup/setupColors';
@@ -28,7 +33,6 @@ import setupExtensions from './setup/setupExtensions';
 import setupFormatters from './setup/setupFormatters';
 import setupDashboardComponents from './setup/setupDasboardComponents';
 import { BootstrapUser, User } from './types/bootstrapTypes';
-import { initFeatureFlags } from './featureFlags';
 
 if (process.env.WEBPACK_MODE === 'development') {
   setHotLoaderConfig({ logLevel: 'debug', trackTailUpdates: false });

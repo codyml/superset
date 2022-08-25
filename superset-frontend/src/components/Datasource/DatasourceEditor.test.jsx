@@ -22,7 +22,7 @@ import userEvent from '@testing-library/user-event';
 import { render, screen } from 'spec/helpers/testing-library';
 import DatasourceEditor from 'src/components/Datasource/DatasourceEditor';
 import mockDatasource from 'spec/fixtures/mockDatasource';
-import * as featureFlags from 'src/featureFlags';
+import * as featureFlags from '@superset-ui/core';
 
 const props = {
   datasource: mockDatasource['7__table'],

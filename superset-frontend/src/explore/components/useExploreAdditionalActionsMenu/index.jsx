@@ -19,7 +19,14 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { FileOutlined, FileImageOutlined } from '@ant-design/icons';
-import { css, styled, t, useTheme } from '@superset-ui/core';
+import {
+  css,
+  styled,
+  t,
+  useTheme,
+  isFeatureEnabled,
+  FeatureFlag,
+} from '@superset-ui/core';
 import { Menu } from 'src/components/Menu';
 import ModalTrigger from 'src/components/ModalTrigger';
 import Button from 'src/components/Button';
@@ -29,7 +36,6 @@ import downloadAsImage from 'src/utils/downloadAsImage';
 import { getChartPermalink } from 'src/utils/urlUtils';
 import copyTextToClipboard from 'src/utils/copy';
 import HeaderReportDropDown from 'src/components/ReportModal/HeaderReportDropdown';
-import { isFeatureEnabled, FeatureFlag } from 'src/featureFlags';
 import ViewQueryModal from '../controls/ViewQueryModal';
 import EmbedCodeContent from '../EmbedCodeContent';
 

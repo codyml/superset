@@ -18,10 +18,14 @@
  */
 import shortid from 'shortid';
 import JSONbig from 'json-bigint';
-import { t, SupersetClient } from '@superset-ui/core';
+import {
+  t,
+  SupersetClient,
+  isFeatureEnabled,
+  FeatureFlag,
+} from '@superset-ui/core';
 import invert from 'lodash/invert';
 import mapKeys from 'lodash/mapKeys';
-import { isFeatureEnabled, FeatureFlag } from 'src/featureFlags';
 
 import { now } from 'src/utils/dates';
 import {

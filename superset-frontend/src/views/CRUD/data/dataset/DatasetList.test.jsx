@@ -25,7 +25,7 @@ import { styledMount as mount } from 'spec/helpers/theming';
 import { render, screen, cleanup } from 'spec/helpers/testing-library';
 import userEvent from '@testing-library/user-event';
 import { QueryParamProvider } from 'use-query-params';
-import * as featureFlags from 'src/featureFlags';
+import * as featureFlags from '@superset-ui/core';
 
 import DatasetList from 'src/views/CRUD/data/dataset/DatasetList';
 import ListView from 'src/components/ListView';

@@ -17,7 +17,7 @@
  * under the License.
  */
 import { Behavior, FeatureFlag } from '@superset-ui/core';
-import * as featureFlags from 'src/featureFlags';
+import * as featureFlags from '@superset-ui/core';
 import { nativeFilterGate } from './utils';
 
 let isFeatureEnabledMock: jest.MockInstance<boolean, [feature: FeatureFlag]>;

@@ -83,6 +83,12 @@ declare global {
   }
 }
 
+export function initFeatureFlags(featureFlags: FeatureFlagMap) {
+  if (!window.featureFlags) {
+    window.featureFlags = featureFlags || {};
+  }
+}
+
 export function isFeatureEnabled(feature: FeatureFlag) {
   try {
     return !!window.featureFlags[feature];

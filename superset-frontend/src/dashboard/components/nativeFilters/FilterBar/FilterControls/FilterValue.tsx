@@ -33,13 +33,14 @@ import {
   ChartDataResponseResult,
   JsonObject,
   getChartMetadataRegistry,
+  FeatureFlag,
+  isFeatureEnabled,
 } from '@superset-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { isEqual, isEqualWith } from 'lodash';
 import { getChartDataRequest } from 'src/components/Chart/chartAction';
 import Loading from 'src/components/Loading';
 import BasicErrorAlert from 'src/components/ErrorMessage/BasicErrorAlert';
-import { FeatureFlag, isFeatureEnabled } from 'src/featureFlags';
 import { waitForAsyncData } from 'src/middleware/asyncEvent';
 import { ClientErrorObject } from 'src/utils/getClientErrorObject';
 import { RootState } from 'src/dashboard/types';

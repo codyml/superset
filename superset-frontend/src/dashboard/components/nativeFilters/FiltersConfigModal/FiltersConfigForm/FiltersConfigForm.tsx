@@ -36,6 +36,8 @@ import {
   SupersetApiError,
   SupersetClient,
   t,
+  FeatureFlag,
+  isFeatureEnabled,
 } from '@superset-ui/core';
 import { isEqual } from 'lodash';
 import React, {
@@ -68,7 +70,6 @@ import {
 } from 'src/dashboard/types';
 import DateFilterControl from 'src/explore/components/controls/DateFilterControl';
 import AdhocFilterControl from 'src/explore/components/controls/FilterControl/AdhocFilterControl';
-import { FeatureFlag, isFeatureEnabled } from 'src/featureFlags';
 import { waitForAsyncData } from 'src/middleware/asyncEvent';
 import { cacheWrapper } from 'src/utils/cacheWrapper';
 import { ClientErrorObject } from 'src/utils/getClientErrorObject';

@@ -24,7 +24,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import Split from 'react-split';
-import { t, styled, withTheme } from '@superset-ui/core';
+import {
+  t,
+  styled,
+  withTheme,
+  FeatureFlag,
+  isFeatureEnabled,
+} from '@superset-ui/core';
 import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
 import StyledModal from 'src/components/Modal';
@@ -66,7 +72,6 @@ import {
   LocalStorageKeys,
   setItem,
 } from 'src/utils/localStorageHelpers';
-import { FeatureFlag, isFeatureEnabled } from 'src/featureFlags';
 import { EmptyStateBig } from 'src/components/EmptyState';
 import { isEmpty } from 'lodash';
 import TemplateParamsEditor from '../TemplateParamsEditor';

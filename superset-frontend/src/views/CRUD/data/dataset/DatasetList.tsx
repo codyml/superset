@@ -16,7 +16,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { SupersetClient, t, styled } from '@superset-ui/core';
+import {
+  SupersetClient,
+  t,
+  styled,
+  isFeatureEnabled,
+  FeatureFlag,
+} from '@superset-ui/core';
 import React, {
   FunctionComponent,
   useState,
@@ -57,7 +63,6 @@ import FacePile from 'src/components/FacePile';
 import CertifiedBadge from 'src/components/CertifiedBadge';
 import InfoTooltip from 'src/components/InfoTooltip';
 import ImportModelsModal from 'src/components/ImportModal/index';
-import { isFeatureEnabled, FeatureFlag } from 'src/featureFlags';
 import WarningIconWithTooltip from 'src/components/WarningIconWithTooltip';
 import { isUserAdmin } from 'src/dashboard/util/permissionUtils';
 import { GenericLink } from 'src/components/GenericLink/GenericLink';

@@ -17,7 +17,12 @@
  * under the License.
  */
 /* eslint-disable camelcase */
-import { Behavior, getChartMetadataRegistry } from '@superset-ui/core';
+import {
+  Behavior,
+  getChartMetadataRegistry,
+  FeatureFlag,
+  isFeatureEnabled,
+} from '@superset-ui/core';
 
 import { chart } from 'src/components/Chart/chartReducer';
 import { initSliceEntities } from 'src/dashboard/reducers/sliceEntities';
@@ -51,7 +56,6 @@ import { URL_PARAMS } from 'src/constants';
 import { getUrlParam } from 'src/utils/urlUtils';
 import { FILTER_BOX_MIGRATION_STATES } from 'src/explore/constants';
 import { ResourceStatus } from 'src/hooks/apiResources/apiResources';
-import { FeatureFlag, isFeatureEnabled } from '../../featureFlags';
 import extractUrlParams from '../util/extractUrlParams';
 import getNativeFilterConfig from '../util/filterboxMigrationHelper';
 import { updateColorSchema } from './dashboardInfo';

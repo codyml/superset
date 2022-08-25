@@ -21,7 +21,7 @@ import userEvent from '@testing-library/user-event';
 import sinon from 'sinon';
 import fetchMock from 'fetch-mock';
 import { render, screen } from 'spec/helpers/testing-library';
-import * as featureFlags from 'src/featureFlags';
+import * as featureFlags from '@superset-ui/core';
 import * as actions from 'src/reports/actions/reports';
 import { FeatureFlag } from '@superset-ui/core';
 import ReportModal from '.';

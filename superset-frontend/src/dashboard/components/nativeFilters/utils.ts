@@ -27,10 +27,10 @@ import {
   Filter,
   getChartMetadataRegistry,
   QueryFormData,
+  isFeatureEnabled,
 } from '@superset-ui/core';
 import { DashboardLayout } from 'src/dashboard/types';
 import extractUrlParams from 'src/dashboard/util/extractUrlParams';
-import { isFeatureEnabled } from 'src/featureFlags';
 import { CHART_TYPE, TAB_TYPE } from '../../util/componentTypes';
 import { DASHBOARD_GRID_ID, DASHBOARD_ROOT_ID } from '../../util/constants';
 

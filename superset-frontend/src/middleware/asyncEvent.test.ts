@@ -19,7 +19,7 @@
 import fetchMock from 'fetch-mock';
 import WS from 'jest-websocket-mock';
 import sinon from 'sinon';
-import * as featureFlags from 'src/featureFlags';
+import * as featureFlags from '@superset-ui/core';
 import { parseErrorJson } from 'src/utils/getClientErrorObject';
 import * as asyncEvent from 'src/middleware/asyncEvent';
 

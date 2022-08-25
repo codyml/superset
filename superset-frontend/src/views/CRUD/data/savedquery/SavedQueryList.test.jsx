@@ -26,7 +26,7 @@ import { render, screen, cleanup, waitFor } from 'spec/helpers/testing-library';
 import userEvent from '@testing-library/user-event';
 import { QueryParamProvider } from 'use-query-params';
 import { act } from 'react-dom/test-utils';
-import * as featureFlags from 'src/featureFlags';
+import * as featureFlags from '@superset-ui/core';
 import SavedQueryList from 'src/views/CRUD/data/savedquery/SavedQueryList';
 import SubMenu from 'src/views/components/SubMenu';
 import ListView from 'src/components/ListView';

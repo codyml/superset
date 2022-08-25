@@ -21,13 +21,13 @@ import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import { hot } from 'react-hot-loader/root';
-import { ThemeProvider } from '@superset-ui/core';
-import { GlobalStyles } from 'src/GlobalStyles';
 import {
+  ThemeProvider,
   initFeatureFlags,
   isFeatureEnabled,
   FeatureFlag,
-} from 'src/featureFlags';
+} from '@superset-ui/core';
+import { GlobalStyles } from 'src/GlobalStyles';
 import getInitialState from './reducers/getInitialState';
 import rootReducer from './reducers/index';
 import { initEnhancer } from '../reduxUtils';

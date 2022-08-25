@@ -33,7 +33,7 @@ import {
 import AdhocMetric from 'src/explore/components/controls/MetricControl/AdhocMetric';
 import { render, screen, act, waitFor } from '@testing-library/react';
 import { supersetTheme, FeatureFlag, ThemeProvider } from '@superset-ui/core';
-import * as featureFlags from 'src/featureFlags';
+import * as featureFlags from '@superset-ui/core';
 import userEvent from '@testing-library/user-event';
 import fetchMock from 'fetch-mock';
 

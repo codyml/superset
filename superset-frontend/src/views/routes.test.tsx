@@ -19,8 +19,8 @@
 
 import { isFrontendRoute, routes } from './routes';
 
-jest.mock('src/featureFlags', () => ({
-  ...jest.requireActual<object>('src/featureFlags'),
+jest.mock('@superset-ui/core', () => ({
+  ...jest.requireActual<object>('@superset-ui/core'),
   isFeatureEnabled: jest.fn().mockReturnValue(true),
 }));
 

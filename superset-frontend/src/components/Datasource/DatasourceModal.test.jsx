@@ -30,7 +30,7 @@ import waitForComponentToPaint from 'spec/helpers/waitForComponentToPaint';
 import Modal from 'src/components/Modal';
 import { DatasourceModal } from 'src/components/Datasource';
 import DatasourceEditor from 'src/components/Datasource/DatasourceEditor';
-import * as featureFlags from 'src/featureFlags';
+import * as featureFlags from '@superset-ui/core';
 import mockDatasource from 'spec/fixtures/mockDatasource';
 
 const mockStore = configureStore([thunk]);

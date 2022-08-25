@@ -23,6 +23,8 @@ import {
   t,
   SupersetClient,
   getSharedLabelColor,
+  FeatureFlag,
+  isFeatureEnabled,
 } from '@superset-ui/core';
 import {
   addChart,
@@ -42,7 +44,6 @@ import serializeActiveFilterValues from 'src/dashboard/util/serializeActiveFilte
 import serializeFilterScopes from 'src/dashboard/util/serializeFilterScopes';
 import { getActiveFilters } from 'src/dashboard/util/activeDashboardFilters';
 import { safeStringify } from 'src/utils/safeStringify';
-import { FeatureFlag, isFeatureEnabled } from 'src/featureFlags';
 import { UPDATE_COMPONENTS_PARENTS_LIST } from './dashboardLayout';
 import {
   setChartConfiguration,

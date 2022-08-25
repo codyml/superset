@@ -18,9 +18,8 @@
  */
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { t, useTheme } from '@superset-ui/core';
+import { t, useTheme, isFeatureEnabled, FeatureFlag } from '@superset-ui/core';
 import { handleDashboardDelete, CardStyles } from 'src/views/CRUD/utils';
-import { isFeatureEnabled, FeatureFlag } from 'src/featureFlags';
 import { AntdDropdown } from 'src/components';
 import { Menu } from 'src/components/Menu';
 import ConfirmStatusChange from 'src/components/ConfirmStatusChange';

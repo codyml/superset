@@ -18,7 +18,7 @@
  */
 import React from 'react';
 import { shallow } from 'enzyme';
-import { supersetTheme } from '@superset-ui/core';
+import { supersetTheme, FeatureFlag } from '@superset-ui/core';
 import { Provider } from 'react-redux';
 import { Store } from 'redux';
 import * as SupersetUI from '@superset-ui/core';
@@ -37,7 +37,6 @@ import { sliceId } from 'spec/fixtures/mockChartQueries';
 import { dashboardFilters } from 'spec/fixtures/mockDashboardFilters';
 import { dashboardWithFilter } from 'spec/fixtures/mockDashboardLayout';
 import Icons from 'src/components/Icons';
-import { FeatureFlag } from 'src/featureFlags';
 
 const defaultStore = getMockStoreWithFilters();
 function setup(store: Store = defaultStore) {
