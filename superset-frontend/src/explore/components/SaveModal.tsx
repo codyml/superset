@@ -21,7 +21,7 @@ import React from 'react';
 import { Input } from 'src/components/Input';
 import { Form, FormItem } from 'src/components/Form';
 import Alert from 'src/components/Alert';
-import { t, styled, DatasourceType } from '@superset-ui/core';
+import { t, styled, DatasourceType, css } from '@superset-ui/core';
 import ReactMarkdown from 'react-markdown';
 import Modal from 'src/components/Modal';
 import { Radio } from 'src/components/Radio';
@@ -62,6 +62,12 @@ type SaveModalState = {
   action: ActionType;
   isLoading: boolean;
   saveStatus?: string | null;
+};
+
+type DashboardGetResponse = {
+  id: number;
+  url: string;
+  dashboard_title: string;
 };
 
 export const StyledModal = styled(Modal)`
@@ -150,23 +156,14 @@ class SaveModal extends React.Component<SaveModalProps, SaveModalState> {
   async saveOrOverwrite(gotodash: boolean) {
     this.setState({ alert: null, isLoading: true });
     this.props.actions.removeSaveModalAlert();
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
-    let promise = Promise.resolve();
+    try {
+      if (this.props.datasource?.type === DatasourceType.Query) {
+        const { schema, sql, database } = this.props.datasource;
+        const { templateParams } = this.props.datasource;
+        const columns = this.props.datasource?.columns || [];
 
-    //  Create or retrieve dashboard
-    type DashboardGetResponse = {
-      id: number;
-      url: string;
-      dashboard_title: string;
-    };
-
-    if (this.props.datasource?.type === DatasourceType.Query) {
-      const { schema, sql, database } = this.props.datasource;
-      const { templateParams } = this.props.datasource;
-      const columns = this.props.datasource?.columns || [];
-
-      try {
+        // If this fails, skip to `finally` since server was unable to create dataset
         await this.props.actions.saveDataset({
           schema,
           sql,
@@ -175,55 +172,44 @@ class SaveModal extends React.Component<SaveModalProps, SaveModalState> {
           datasourceName: this.state.datasetName,
           columns,
         });
-      } catch {
-        // Don't continue since server was unable to create dataset
-        this.setState({ isLoading: false });
-        return;
-      }
-    }
-
-    //  Get chart dashboards
-    let sliceDashboards: number[] = [];
-    if (this.props.slice && this.state.action === 'overwrite') {
-      promise = promise
-        .then(() => this.props.actions.getSliceDashboards(this.props.slice))
-        .then(dashboards => {
-          sliceDashboards = dashboards;
-        });
-    }
-
-    let dashboard: DashboardGetResponse | null = null;
-    if (this.state.newDashboardName || this.state.saveToDashboardId) {
-      let saveToDashboardId = this.state.saveToDashboardId || null;
-      if (!this.state.saveToDashboardId) {
-        promise = promise
-          .then(() =>
-            this.props.actions.createDashboard(this.state.newDashboardName),
-          )
-          .then((response: { id: number }) => {
-            saveToDashboardId = response.id;
-          });
       }
 
-      promise = promise
-        .then(() => this.props.actions.getDashboard(saveToDashboardId))
-        .then((response: { result: DashboardGetResponse }) => {
-          dashboard = response.result;
-          sliceDashboards = sliceDashboards.includes(dashboard.id)
-            ? sliceDashboards
-            : [...sliceDashboards, dashboard.id];
-          const { url_params, ...formData } = this.props.form_data || {};
-          this.props.actions.setFormData({
-            ...formData,
-            dashboards: sliceDashboards,
-          });
-        });
-    }
+      //  Get chart dashboards
+      let sliceDashboards: number[] = [];
+      if (this.props.slice && this.state.action === 'overwrite') {
+        sliceDashboards = await this.props.actions.getSliceDashboards(
+          this.props.slice,
+        );
+      }
 
-    //  Update or create slice
-    if (this.state.action === 'overwrite') {
-      promise = promise.then(() =>
-        this.props.actions.updateSlice(
+      //  Create or retrieve dashboard
+      let dashboard: DashboardGetResponse | null = null;
+      if (this.state.newDashboardName || this.state.saveToDashboardId) {
+        let saveToDashboardId = this.state.saveToDashboardId || null;
+        if (!saveToDashboardId) {
+          saveToDashboardId = (
+            await this.props.actions.createDashboard(
+              this.state.newDashboardName,
+            )
+          ).id;
+        }
+        dashboard = (await this.props.actions.getDashboard(saveToDashboardId))
+          .result as DashboardGetResponse;
+        sliceDashboards = sliceDashboards.includes(dashboard.id)
+          ? sliceDashboards
+          : [...sliceDashboards, dashboard.id];
+        const formData = { ...(this.props.form_data || {}) };
+        delete formData.url_params;
+        this.props.actions.setFormData({
+          ...formData,
+          dashboards: sliceDashboards,
+        });
+      }
+
+      //  Update or create slice
+      let slice;
+      if (this.state.action === 'overwrite') {
+        slice = await this.props.actions.updateSlice(
           this.props.slice,
           this.state.newSliceName,
           sliceDashboards,
@@ -233,11 +219,9 @@ class SaveModal extends React.Component<SaveModalProps, SaveModalState> {
                 new: !this.state.saveToDashboardId,
               }
             : null,
-        ),
-      );
-    } else {
-      promise = promise.then(() =>
-        this.props.actions.createSlice(
+        );
+      } else {
+        slice = await this.props.actions.createSlice(
           this.state.newSliceName,
           sliceDashboards,
           dashboard
@@ -246,11 +230,9 @@ class SaveModal extends React.Component<SaveModalProps, SaveModalState> {
                 new: !this.state.saveToDashboardId,
               }
             : null,
-        ),
-      );
-    }
+        );
+      }
 
-    promise.then(((value: { id: number }) => {
       //  Update recent dashboard
       if (dashboard) {
         sessionStorage.setItem(SK_DASHBOARD_ID, `${dashboard.id}`);
@@ -268,13 +250,13 @@ class SaveModal extends React.Component<SaveModalProps, SaveModalState> {
       searchParams.set('save_action', this.state.action);
       searchParams.delete('form_data_key');
       if (this.state.action === 'saveas') {
-        searchParams.set('slice_id', value.id.toString());
+        searchParams.set('slice_id', slice.id.toString());
       }
       this.props.history.replace(`/explore/?${searchParams.toString()}`);
-    }) as (value: any) => void);
-
-    this.setState({ isLoading: false });
-    this.props.onHide();
+      this.props.onHide();
+    } finally {
+      this.setState({ isLoading: false });
+    }
   }
 
   renderSaveChartModal = () => {
@@ -286,19 +268,10 @@ class SaveModal extends React.Component<SaveModalProps, SaveModalState> {
         {(this.state.alert || this.props.alert) && (
           <Alert
             type="warning"
-            message={
-              <>
-                {this.state.alert || this.props.alert}
-                <i
-                  role="button"
-                  aria-label="Remove alert"
-                  tabIndex={0}
-                  className="fa fa-close pull-right"
-                  onClick={this.removeAlert.bind(this)}
-                  style={{ cursor: 'pointer' }}
-                />
-              </>
-            }
+            message={this.state.alert || this.props.alert}
+            css={theme => css`
+              margin-bottom: ${theme.gridUnit * 4}px;
+            `}
           />
         )}
         <FormItem data-test="radio-group">
@@ -429,7 +402,13 @@ class SaveModal extends React.Component<SaveModalProps, SaveModalState> {
         footer={this.renderFooter()}
       >
         {this.state.isLoading ? (
-          <Loading position="normal" />
+          <div
+            css={css`
+              text-align: center;
+            `}
+          >
+            <Loading position="normal" />
+          </div>
         ) : (
           this.renderSaveChartModal()
         )}
