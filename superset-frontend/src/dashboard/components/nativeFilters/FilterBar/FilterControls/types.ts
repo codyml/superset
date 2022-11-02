@@ -31,4 +31,6 @@ export interface FilterProps {
   showOverflow?: boolean;
   parentRef?: RefObject<any>;
   setFilterActive?: (isActive: boolean) => void;
+  horizontal?: boolean;
+  overflow?: boolean;
 }
