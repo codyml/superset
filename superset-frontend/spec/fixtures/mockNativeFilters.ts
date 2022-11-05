@@ -17,8 +17,10 @@
  * under the License.
  */
 import {
+  ChartDataResponseResult,
   DataMaskStateWithId,
   ExtraFormData,
+  Filter,
   NativeFiltersState,
   NativeFilterType,
 } from '@superset-ui/core';
@@ -460,7 +462,8 @@ export const buildNativeFilter = (
   id: string,
   name: string,
   dependencies: string[],
-) => ({
+  filter?: Partial<Filter>,
+): Filter => ({
   id,
   controlValues: {
     multiSelect: true,
@@ -470,6 +473,7 @@ export const buildNativeFilter = (
     searchAllOptions: false,
   },
   name,
+  description: '',
   filterType: 'filter_select',
   targets: [
     {
@@ -489,5 +493,48 @@ export const buildNativeFilter = (
     rootPath: ['ROOT_ID'],
     excluded: [],
   },
-  type: 'NATIVE_FILTER',
+  type: NativeFilterType.NATIVE_FILTER,
+  ...filter,
 });
+
+export const rangeFilterQueryResponse: ChartDataResponseResult[] = [
+  {
+    cache_key: 'd5be2bca13c9aa92097d4ca2b541d9b2',
+    cached_dttm: '2022-11-05T00:19:59',
+    cache_timeout: 300,
+    annotation_data: {},
+    error: null,
+    is_cached: true,
+    query:
+      'SELECT min("NY_GNP_PCAP_CD") AS min,\n       max("NY_GNP_PCAP_CD") AS max\nFROM public.wb_health_population\nLIMIT 1000;\n\n',
+    status: 'success',
+    stacktrace: null,
+    rowcount: 1,
+    from_dttm: null,
+    to_dttm: 1667606400000,
+    colnames: ['min', 'max'],
+    coltypes: [0, 0],
+    data: [{ min: 40, max: 186710 }],
+  },
+];
+
+export const selectFilterQueryResponse: ChartDataResponseResult[] = [
+  {
+    cache_key: '89204cf28e2cc0b22ffb2471b5950489',
+    cached_dttm: null,
+    cache_timeout: 300,
+    annotation_data: {},
+    error: null,
+    is_cached: true,
+    query:
+      'SELECT country_name AS country_name\nFROM public.wb_health_population\nGROUP BY country_name\nORDER BY country_name ASC\nLIMIT 1000;\n\n',
+    status: 'success',
+    stacktrace: null,
+    rowcount: 214,
+    from_dttm: null,
+    to_dttm: 1667606400000,
+    colnames: ['country_name'],
+    coltypes: [1],
+    data: mockQueryDataForCountries,
+  },
+];

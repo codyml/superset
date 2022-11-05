@@ -17,8 +17,9 @@
  * under the License.
  */
 import React, { useContext, useMemo, useState } from 'react';
-import { styled, SupersetTheme } from '@superset-ui/core';
+import { css, styled, SupersetTheme, useTheme } from '@superset-ui/core';
 import { FormItem as StyledFormItem, Form } from 'src/components/Form';
+import Icons from 'src/components/Icons';
 import { Tooltip } from 'src/components/Tooltip';
 import { checkIsMissingRequiredValue } from '../utils';
 import FilterValue from './FilterValue';
@@ -76,7 +77,7 @@ const ToolTipContainer = styled.div`
 const RequiredFieldIndicator = () => (
   <span
     css={(theme: SupersetTheme) => ({
-      color: theme.colors.error.base,
+      color: theme.colors.error.light1,
       fontSize: `${theme.typography.sizes.s}px`,
       paddingLeft: '1px',
     })}
@@ -85,29 +86,34 @@ const RequiredFieldIndicator = () => (
   </span>
 );
 
-const DescriptionToolTip = ({ description }: { description: string }) => (
-  <ToolTipContainer>
-    <Tooltip
-      title={description}
-      placement="right"
-      overlayInnerStyle={{
-        display: '-webkit-box',
-        overflow: 'hidden',
-        WebkitLineClamp: 20,
-        WebkitBoxOrient: 'vertical',
-        textOverflow: 'ellipsis',
-      }}
-    >
-      <i
-        className="fa fa-info-circle text-muted"
-        css={(theme: SupersetTheme) => ({
-          paddingLeft: `${theme.gridUnit}px`,
-          cursor: 'pointer',
-        })}
-      />
-    </Tooltip>
-  </ToolTipContainer>
-);
+const DescriptionToolTip = ({ description }: { description: string }) => {
+  const theme = useTheme();
+  return (
+    <ToolTipContainer>
+      <Tooltip
+        title={description}
+        placement="right"
+        overlayInnerStyle={{
+          display: '-webkit-box',
+          overflow: 'hidden',
+          WebkitLineClamp: 20,
+          WebkitBoxOrient: 'vertical',
+          textOverflow: 'ellipsis',
+        }}
+      >
+        <Icons.InfoCircleOutlined
+          data-test="description-tooltip-trigger"
+          iconSize="s"
+          iconColor={theme.colors.grayscale.base}
+          css={css`
+            padding-left: ${theme.gridUnit}px;
+            cursor: pointer;
+          `}
+        />
+      </Tooltip>
+    </ToolTipContainer>
+  );
+};
 
 const FilterControl: React.FC<FilterProps> = ({
   dataMaskSelected,

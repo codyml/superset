@@ -20,11 +20,44 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { css } from '@emotion/react';
+import { NativeFilterType } from '@superset-ui/core';
 import { getMockStoreWithNativeFilters } from 'spec/fixtures/mockStore';
-import { buildNativeFilter } from 'spec/fixtures/mockNativeFilters';
 import 'src/dashboard/stylesheets/index.less';
 import FilterControl from './FilterControl';
 import { FilterProps } from './types';
+
+const MOCK_NATIVE_FILTER = {
+  id: '123',
+  controlValues: {
+    multiSelect: true,
+    enableEmptyFilter: false,
+    defaultToFirstItem: false,
+    inverseSelection: false,
+    searchAllOptions: false,
+  },
+  name: 'Filter name',
+  description: 'Filter description',
+  filterType: 'filter_select',
+  targets: [
+    {
+      datasetId: 1,
+      column: {
+        name: 'column_name',
+      },
+    },
+  ],
+  defaultDataMask: {
+    extraFormData: {},
+    filterState: {},
+    ownState: {},
+  },
+  cascadeParentIds: [],
+  scope: {
+    rootPath: ['ROOT_ID'],
+    excluded: [],
+  },
+  type: NativeFilterType.NATIVE_FILTER,
+};
 
 export default {
   title: 'Dashboard / Native Filters / FilterControl',
@@ -32,10 +65,7 @@ export default {
   parameters: { knobs: { disable: true } },
   args: {
     onFilterSelectionChange: () => null,
-    filter: {
-      ...buildNativeFilter('1', 'column_name', []),
-      name: 'Filter name',
-    },
+    filter: MOCK_NATIVE_FILTER,
   },
 };
 

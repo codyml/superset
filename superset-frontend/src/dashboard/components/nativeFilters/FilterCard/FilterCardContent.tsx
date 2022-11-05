@@ -25,7 +25,7 @@ import { NameRow } from './NameRow';
 import { TypeRow } from './TypeRow';
 
 export const FilterCardContent = ({ filter }: { filter: Filter }) => (
-  <div>
+  <div data-test="filter-card-content">
     <NameRow filter={filter} />
     <TypeRow filter={filter} />
     <ScopeRow filter={filter} />
